@@ -19,6 +19,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.kdp.kdpAutomationFramework.pages.Page;
 
@@ -93,6 +95,12 @@ public class CommonFunction {
 	public static void waitFor(int ms) throws InterruptedException {
 		Thread.sleep(ms);
 	}
+	
+	public static void waitForElementToBeClickable(WebDriver driver, String element) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
+		       WebDriverWait wait = new WebDriverWait(driver,30);
+		       wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getCurrentElementXpath(element))));
+		        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(getCurrentElementXpath(element))));
+	}
 
 	public static void openApplication(WebDriver driver) throws IOException {
 
@@ -132,16 +140,26 @@ public class CommonFunction {
 		return xpath;
 	}
 
-	public static void Click(WebDriver driver, String element)
-			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-
+	public static void click(WebDriver driver, String element)
+			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
+		waitForElementToBeClickable(driver, element);
+		try {
 		driver.findElement(By.xpath(getCurrentElementXpath(element))).click();
+		}catch(Exception e){
+			Thread.sleep(2000);
+			driver.findElement(By.xpath(getCurrentElementXpath(element))).click();
+		}
 	}
 
-	public static void SendKeys(WebDriver driver, String element, String value)
-			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-
+	public static void sendKeys(WebDriver driver, String element, String value)
+			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
+		waitForElementToBeClickable(driver, element);
+		try {
 		driver.findElement(By.xpath(getCurrentElementXpath(element))).sendKeys(value);
+		}catch(Exception e) {
+			Thread.sleep(2000);
+			driver.findElement(By.xpath(getCurrentElementXpath(element))).sendKeys(value);
+		}
 	}
 
 	public static void navigateToPage(WebDriver driver, String pagename)
@@ -157,10 +175,34 @@ public class CommonFunction {
 		Page.setCurrentPage(pagename);
 		System.out.println("current page is set to" + Page.getCurrentPage());
 	}
+	
+	public static void assertOnPage(WebDriver driver, String pagename)
+			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException,
+			NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
 
-	public static void clickOnButton(WebDriver driver, String element) {
+		String fullPathOfTheClass = "com.kdp.kdpAutomationFramework.pages." + pagename;
 
-		driver.findElement(By.xpath("//input[@value='" + element + "' or contains(text(),'" + element + "')]")).click();
+		Class cls = Class.forName(fullPathOfTheClass);
+		Method method = cls.getDeclaredMethod("assertOnPage", WebDriver.class);
+		method.invoke(null, driver);
 
+		Page.setCurrentPage(pagename);
+		System.out.println("current page is set to" + Page.getCurrentPage());
+	}
+	
+
+	public static void clickOnButton(WebDriver driver, String buttonName) {
+
+		try {
+		driver.findElement(By.xpath("//input[@value='" + buttonName + "']")).click();
+		}catch (Exception e) {
+			
+		      try {
+		           driver.findElement(By.xpath("//button[contains(text(),'" + buttonName + "')]")).click();
+		      }catch (Exception e2) {
+		    	  
+		    	  driver.findElement(By.xpath("//*[contains(text(),'" + buttonName + "')]")).click();
+		      }
+		}
 	}
 }
