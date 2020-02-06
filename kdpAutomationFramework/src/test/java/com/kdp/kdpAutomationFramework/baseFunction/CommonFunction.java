@@ -24,6 +24,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.kdp.kdpAutomationFramework.pages.Page;
 
+import junit.framework.Assert;
+
 public class CommonFunction {
 
 	// To get data from properties file
@@ -204,5 +206,10 @@ public class CommonFunction {
 		    	  driver.findElement(By.xpath("//*[contains(text(),'" + buttonName + "')]")).click();
 		      }
 		}
+	}
+	
+	public static void checkElementText(WebDriver driver,String element, String value) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		String actual= driver.findElement(By.xpath(getCurrentElementXpath(element))).getText();
+		Assert.assertEquals(value, actual);
 	}
 }
