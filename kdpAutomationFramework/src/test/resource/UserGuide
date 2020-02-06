@@ -1,6 +1,6 @@
 Regular expression used
 
-user navigates to the (.*) (page|tab)
+user navigates to the '(.*)' (page|tab)
 
 (.*) -> Any text
 (page|tab) -> Accept either page or tab
@@ -9,15 +9,15 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Generic Phrase
 
 Actions on webelement
-Textbox-> user sets the ABC field as XYZ
-Dropbox-> user select ABC from dropbox XYZ
-Button->  user clicks on the ABC button
-Link->    user clicks on the ABC link
-ClickOnElement->  user clicks on the ABC element
-Wait->    user waits until the ABC element is clickable
+Textbox-> user sets the 'ABC' field as 'XYZ'
+Dropbox-> user select 'ABC' from dropbox 'XYZ'
+Button->  user clicks on the 'ABC' button
+Link->    user clicks on the 'ABC' link
+ClickOnElement->  user clicks on the 'ABC' element
+Wait->    user waits until the 'ABC' element is clickable
 
 Navigation
-user navigates to the ABC page|tab
-user is now on the ABC page|tab
+user navigates to the 'ABC' page|tab
+user is now on the 'ABC' page|tab
 
  
