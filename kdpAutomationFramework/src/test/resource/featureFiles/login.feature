@@ -5,7 +5,7 @@ Feature: Login  feature
   Scenario: Check that user can login successfully on passing valid login credentials
     When user navigates to the 'Login' page
     And user sets the 'userName' field as 'civica'
-    And user sets the 'password' field as 'C!v!ca3'
+    And user sets the 'password' field as 'Spr!ng17'
     And user clicks on the 'Login' button
     And user is now on the 'Home' page
     And user clicks on the 'newCase' element
