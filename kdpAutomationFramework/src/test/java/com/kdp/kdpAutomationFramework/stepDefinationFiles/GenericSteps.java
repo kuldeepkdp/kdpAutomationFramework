@@ -29,7 +29,6 @@ public class GenericSteps {
 	}
 
 	@Then("user is now on the '(.*)' (page|tab)")
-	@When("user is now on the '(.*)' (page|tab)")
 	public void nowOnThePage(String pageName, String ignore) throws Throwable {
 		CommonFunction.assertOnPage(driver, pageName);
 	}

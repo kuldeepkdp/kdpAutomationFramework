@@ -5,7 +5,7 @@ Feature: This feature file contain scenario related to Visit case
   Scenario: Check that user can create visit case
     When user navigates to the 'Login' page
     And user sets the 'userName' field as 'civica'
-    And user sets the 'password' field as 'C!v!ca3'
+    And user sets the 'password' field as 'Spr!ng17'
     And user clicks on the 'Login' button
     Then user is now on the 'Home' page
     And user clicks on the 'newCase' element
