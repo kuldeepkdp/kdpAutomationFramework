@@ -10,6 +10,7 @@ import com.kdp.kdpAutomationFramework.baseFunction.CommonFunction;
 import com.kdp.kdpAutomationFramework.baseFunction.Selenium;
 
 import cucumber.api.DataTable;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -86,5 +87,12 @@ public class GenericSteps {
 	public void checkElementText(String element, String value) throws Throwable {
 		CommonFunction.checkElementText(driver, element, value);
 		
+	}
+	
+	@When("^user waits for (\\d+) miliseconds$")
+	public void userWaitsForSeconds(int time) throws Throwable {
+		
+		Thread.sleep(time);
+
 	}
 }

@@ -168,19 +168,23 @@ public class CommonFunction {
 			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException,
 			NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
 
+		Page.setCurrentPage(pagename);
+		System.out.println("current page is set to" + Page.getCurrentPage());
+		
 		String fullPathOfTheClass = "com.kdp.kdpAutomationFramework.pages." + pagename;
 
 		Class cls = Class.forName(fullPathOfTheClass);
 		Method method = cls.getDeclaredMethod("navigateToPage", WebDriver.class);
 		method.invoke(null, driver);
-
-		Page.setCurrentPage(pagename);
-		System.out.println("current page is set to" + Page.getCurrentPage());
+		
 	}
 	
 	public static void assertOnPage(WebDriver driver, String pagename)
 			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException,
 			NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+		
+		Page.setCurrentPage(pagename);
+		System.out.println("current page is set to" + Page.getCurrentPage());
 
 		String fullPathOfTheClass = "com.kdp.kdpAutomationFramework.pages." + pagename;
 
@@ -188,8 +192,7 @@ public class CommonFunction {
 		Method method = cls.getDeclaredMethod("assertOnPage", WebDriver.class);
 		method.invoke(null, driver);
 
-		Page.setCurrentPage(pagename);
-		System.out.println("current page is set to" + Page.getCurrentPage());
+
 	}
 	
 

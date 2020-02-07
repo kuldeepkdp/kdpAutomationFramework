@@ -1,7 +1,7 @@
 @ActiveFeature
 Feature: This feature file contain scenario related to Visit case
 
-   @dev
+   @Active
   Scenario: Check that user can create visit case
     When user navigates to the 'Login' page
     And user sets the 'userName' field as 'civica'
@@ -21,3 +21,16 @@ Feature: This feature file contain scenario related to Visit case
     And user clicks on the 'Next' button
     Then user is shown 'createVisitCasePopup' element with 'Create Visit Case - Select Entity' text
 
+  @dev
+  Scenario:  Check that user can create new generic case task defination
+    When user navigates to the 'Login' page
+    And user sets the 'userName' field as 'civica'
+    And user sets the 'password' field as 'Spr!ng17'
+    And user clicks on the 'Login' button
+    #And user waits for 10000 miliseconds
+    Then user is now on the 'Home' page
+    When user navigates to the 'GenericCaseTaskDefination' page
+    When user navigates to the 'Configuration' page
+
+      
+      
