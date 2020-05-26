@@ -2,6 +2,7 @@ package com.kdp.kdpAutomationFramework.baseFunction;
 
 import java.io.IOException;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,11 +17,11 @@ public class Selenium {
 	public WebDriver driver;
 
 	@Before
-	public void beforeScenario() throws IOException, InterruptedException {
+	public void beforeScenario() throws IOException, InterruptedException, ConfigurationException {
 		
 		System.out.println("Before method is called");
 
-		String browser = CommonFunction.GetData("browser");
+		String browser = CommonFunction.GetConfigData("browser");
 		String IE;
 		String Firefox;
 		String Chrome;
@@ -44,7 +45,7 @@ public class Selenium {
 
 		}
 		   driver.manage().window().maximize();
-	       driver.navigate().to(CommonFunction.GetData("url"));
+	       driver.navigate().to(CommonFunction.GetConfigData("url"));
 
 	}
 

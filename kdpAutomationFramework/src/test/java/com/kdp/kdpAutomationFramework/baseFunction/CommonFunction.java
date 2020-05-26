@@ -8,6 +8,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Properties;
 
+import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -28,14 +30,57 @@ import junit.framework.Assert;
 
 public class CommonFunction {
 
-	// To get data from properties file
-	public static String GetData(String e) throws IOException {
-		FileInputStream fs = new FileInputStream(
+	/*// To get data from properties file
+	public static String GetData(String key) throws IOException {
+		FileInputStream fileInputStream = new FileInputStream(
 				System.getProperty("user.dir") + "//src//test//resource//ObjectRepo.properties");
-		Properties or = new Properties();
-		or.load(fs);
+		Properties properties = new Properties();
+		properties.load(fileInputStream);
+		return (properties.getProperty(key));
+	}*/
 
-		return (or.getProperty(e));
+	// To get data from configuration.properties file
+	public static String GetConfigData(String key) throws ConfigurationException {
+
+		PropertiesConfiguration properties = new PropertiesConfiguration(
+				System.getProperty("user.dir") + "//src//test//resource//configuration.properties");
+		return properties.getString(key);
+	}
+
+	// To get data from environment mentioned in configuration.properties file
+	public static String GetData(String key) throws Exception {
+		PropertiesConfiguration properties;
+		if(GetConfigData("getDataFromEnvironment").equals("testEnvironment")) {
+          properties = new PropertiesConfiguration(
+					System.getProperty("user.dir") + "//src//test//resource//testEnvironment.properties");
+		}
+		else if(GetConfigData("getDataFromEnvironment").equals("sandboxEnvironment")) {
+	          properties = new PropertiesConfiguration(
+						System.getProperty("user.dir") + "//src//test//resource//sandboxEnvironment.properties");
+			}
+		else {
+			throw new Exception("mentioned environment is not iplemented to get data");
+		}
+		
+		return properties.getString(key);
+	}
+	
+	// To Get data from RunTimeDataRepo.properties file
+		public static String GetRunTimeData(String key) throws IOException, ConfigurationException {
+
+			PropertiesConfiguration properties = new PropertiesConfiguration(
+					System.getProperty("user.dir") + "//src//test//resource//runTimeDataRepo.properties");
+			return properties.getString(key);
+
+		}
+
+	// To Set data into RunTimeDataRepo.properties file
+	public static void SetRunTimeData(String key, String value) throws IOException, ConfigurationException {
+
+		PropertiesConfiguration properties = new PropertiesConfiguration(
+				System.getProperty("user.dir") + "//src//test//resource//runTimeDataRepo.properties");
+		properties.setProperty(key, value);
+		properties.save();
 	}
 
 	// To get data from excel sheet
@@ -97,14 +142,15 @@ public class CommonFunction {
 	public static void waitFor(int ms) throws InterruptedException {
 		Thread.sleep(ms);
 	}
-	
-	public static void waitForElementToBeClickable(WebDriver driver, String element) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
-		       WebDriverWait wait = new WebDriverWait(driver,30);
-		       wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getCurrentElementXpath(element))));
-		        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(getCurrentElementXpath(element))));
+
+	public static void waitForElementToBeClickable(WebDriver driver, String element) throws SecurityException,
+			InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(getCurrentElementXpath(element))));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(getCurrentElementXpath(element))));
 	}
 
-	public static void openApplication(WebDriver driver) throws IOException {
+	public static void openApplication(WebDriver driver) throws Exception {
 
 		driver.manage().window().maximize();
 		driver.get(GetData("url"));
@@ -142,23 +188,23 @@ public class CommonFunction {
 		return xpath;
 	}
 
-	public static void click(WebDriver driver, String element)
-			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
+	public static void click(WebDriver driver, String element) throws SecurityException, InstantiationException,
+			IllegalAccessException, ClassNotFoundException, InterruptedException {
 		waitForElementToBeClickable(driver, element);
 		try {
-		driver.findElement(By.xpath(getCurrentElementXpath(element))).click();
-		}catch(Exception e){
+			driver.findElement(By.xpath(getCurrentElementXpath(element))).click();
+		} catch (Exception e) {
 			Thread.sleep(2000);
 			driver.findElement(By.xpath(getCurrentElementXpath(element))).click();
 		}
 	}
 
-	public static void sendKeys(WebDriver driver, String element, String value)
-			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
+	public static void sendKeys(WebDriver driver, String element, String value) throws SecurityException,
+			InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
 		waitForElementToBeClickable(driver, element);
 		try {
-		driver.findElement(By.xpath(getCurrentElementXpath(element))).sendKeys(value);
-		}catch(Exception e) {
+			driver.findElement(By.xpath(getCurrentElementXpath(element))).sendKeys(value);
+		} catch (Exception e) {
 			Thread.sleep(2000);
 			driver.findElement(By.xpath(getCurrentElementXpath(element))).sendKeys(value);
 		}
@@ -170,19 +216,19 @@ public class CommonFunction {
 
 		Page.setCurrentPage(pagename);
 		System.out.println("current page is set to" + Page.getCurrentPage());
-		
+
 		String fullPathOfTheClass = "com.kdp.kdpAutomationFramework.pages." + pagename;
 
 		Class cls = Class.forName(fullPathOfTheClass);
 		Method method = cls.getDeclaredMethod("navigateToPage", WebDriver.class);
 		method.invoke(null, driver);
-		
+
 	}
-	
+
 	public static void assertOnPage(WebDriver driver, String pagename)
 			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException,
 			NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
-		
+
 		Page.setCurrentPage(pagename);
 		System.out.println("current page is set to" + Page.getCurrentPage());
 
@@ -192,27 +238,26 @@ public class CommonFunction {
 		Method method = cls.getDeclaredMethod("assertOnPage", WebDriver.class);
 		method.invoke(null, driver);
 
-
 	}
-	
 
 	public static void clickOnButton(WebDriver driver, String buttonName) {
 
 		try {
-		driver.findElement(By.xpath("//input[@value='" + buttonName + "']")).click();
-		}catch (Exception e) {
-			
-		      try {
-		           driver.findElement(By.xpath("//button[contains(text(),'" + buttonName + "')]")).click();
-		      }catch (Exception e2) {
-		    	  
-		    	  driver.findElement(By.xpath("//*[contains(text(),'" + buttonName + "')]")).click();
-		      }
+			driver.findElement(By.xpath("//input[@value='" + buttonName + "']")).click();
+		} catch (Exception e) {
+
+			try {
+				driver.findElement(By.xpath("//button[contains(text(),'" + buttonName + "')]")).click();
+			} catch (Exception e2) {
+
+				driver.findElement(By.xpath("//*[contains(text(),'" + buttonName + "')]")).click();
+			}
 		}
 	}
-	
-	public static void checkElementText(WebDriver driver,String element, String value) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		String actual= driver.findElement(By.xpath(getCurrentElementXpath(element))).getText();
+
+	public static void checkElementText(WebDriver driver, String element, String value)
+			throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+		String actual = driver.findElement(By.xpath(getCurrentElementXpath(element))).getText();
 		Assert.assertEquals(value, actual);
 	}
 }

@@ -71,7 +71,24 @@ public class GenericSteps {
 					System.out.println("Set the alias");
 				}
 			} else if (list.get(i).get("Type").equals("textbox")) {
-				CommonFunction.sendKeys(driver, list.get(i).get("Element"), list.get(i).get("Value"));
+				
+				String inputValue = list.get(i).get("Value");
+				
+				if(list.get(i).get("Value").startsWith("$")) {
+					
+					inputValue=CommonFunction.GetData(list.get(i).get("Value"));
+				}
+				if(list.get(i).get("Value").startsWith("&")) {
+					
+					inputValue=CommonFunction.GetRunTimeData(list.get(i).get("Value"));
+				}
+				
+				if (!list.get(i).get("Alias").equals("")) {
+					System.out.println("Set the alias");
+					CommonFunction.SetRunTimeData(list.get(i).get("Alias"), inputValue);
+				}
+				
+				CommonFunction.sendKeys(driver, list.get(i).get("Element"), inputValue);
 			}
 
 			else if (list.get(i).get("Type").equals("date")) {

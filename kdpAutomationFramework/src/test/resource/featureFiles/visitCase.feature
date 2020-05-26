@@ -21,7 +21,7 @@ Feature: This feature file contain scenario related to Visit case
     And user clicks on the 'Next' button
     Then user is shown 'createVisitCasePopup' element with 'Create Visit Case - Select Entity' text
 
-  @dev
+  @Active
   Scenario:  Check that user can create new generic case task defination
     When user navigates to the 'Login' page
     And user sets the 'userName' field as 'civica'

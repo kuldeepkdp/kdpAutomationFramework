@@ -13,7 +13,7 @@ public class Login {
     
 
 	
-	public static void navigateToPage(WebDriver driver) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException{
+	public static void navigateToPage(WebDriver driver) throws Exception{
 		 try {
 				driver.navigate().to(CommonFunction.GetData("url"));
 			} catch (IOException e) {

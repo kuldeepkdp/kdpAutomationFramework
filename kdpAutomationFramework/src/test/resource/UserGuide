@@ -1,3 +1,16 @@
+Sample Application
+https://www.insightly.com/
+
+Prescribing
+https://qa1.vnext.xyz/release1-10-Web
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Properties file key format
+testEnvironment-> $key
+runtimeDataRepo-> &key
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
 Regular expression used
 
 user navigates to the '(.*)' (page|tab)
@@ -20,5 +33,10 @@ Static Wait -> user waits for 5 seconds
 Navigation
 user navigates to the 'ABC' page|tab
 user is now on the 'ABC' page|tab
+
+Form filling
+And fills out the current form as follows
+      | Element         | Type    | Value                  | Alias |
+      | companies       | dropbox | Civica Housing         | abc   |
 
  
