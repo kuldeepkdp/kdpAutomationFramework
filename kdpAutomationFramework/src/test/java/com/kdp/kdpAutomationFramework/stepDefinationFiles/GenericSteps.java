@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 
-import com.kdp.kdpAutomationFramework.baseFunction.AppSpecificUiControl;
+import com.kdp.kdpAutomationFramework.baseFunction.UiControl;
 import com.kdp.kdpAutomationFramework.baseFunction.CommonFunction;
 import com.kdp.kdpAutomationFramework.baseFunction.Selenium;
 
@@ -56,9 +56,9 @@ public class GenericSteps {
 
 	@When("user select '(.*)' from dropbox '(.*)'")
 	public void selectFromStandardDropbox(String value, String element) throws Throwable {
-		AppSpecificUiControl.selectFromStandardDropbox(driver, element, value);
+		UiControl.dropbox(driver, element, value);
 	}
-
+/*
 	@When("^fills out the current form as follows$")
 	public void fillOutCurrentForm(DataTable dt) throws Throwable {
 
@@ -98,7 +98,7 @@ public class GenericSteps {
 			}
 		}
 
-	}
+	}*/
 	
 	@Then("user is shown '(.*)' element with '(.*)' text")
 	public void checkElementText(String element, String value) throws Throwable {
@@ -112,4 +112,17 @@ public class GenericSteps {
 		Thread.sleep(time);
 
 	}
+	
+	@When("^fills out the current form as follows$")
+	public void fillOutCurrentForm(DataTable dt) throws Throwable {
+
+		List<Map<String, String>> list = dt.asMaps(String.class, String.class);
+		
+		for (Map<String, String> map : list) 
+		{ 
+		   CommonFunction.setValue(driver, map.get("Element"), map.get("Type"), map.get("Value"), map.get("Alias"));
+		}			
+	}
+	
+	
 }

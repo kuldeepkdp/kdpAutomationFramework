@@ -260,4 +260,38 @@ public class CommonFunction {
 		String actual = driver.findElement(By.xpath(getCurrentElementXpath(element))).getText();
 		Assert.assertEquals(value, actual);
 	}
+	
+	//This method will return value from properties file, random values or just the passed value as per value format
+	public static String getValue(String value) throws Exception {
+		if(value.startsWith("$")) {
+			return CommonFunction.GetData(value);
+		}
+		if(value.startsWith("&")) {
+			return CommonFunction.GetRunTimeData(value);
+		}
+		else return value;	
+	}
+	
+	//This method will set alias on runTimeDataRepo file
+	public static void setAlias(String alias, String value) throws ConfigurationException, IOException {
+			if (!alias.equals("")) {
+				CommonFunction.SetRunTimeData(alias, value);
+			}
+		}
+	
+	//Set the value on mentioned UI controls
+	 public static void setValue(WebDriver driver, String element, String type, String value, String alias) throws Exception {
+		String inputValue= getValue(value);
+
+		if(type.equalsIgnoreCase("textbox")) {
+			
+			UiControl.textbox(driver, element, inputValue);
+			
+		}
+        if(type.equalsIgnoreCase("dropbox")) {
+        	UiControl.dropbox(driver, element, inputValue);
+		}
+        
+		setAlias(alias,inputValue);
+	}
 }
