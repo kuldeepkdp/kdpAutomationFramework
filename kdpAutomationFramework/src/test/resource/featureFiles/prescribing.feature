@@ -11,9 +11,12 @@ Feature: This feature file contain scenario related prescribing application
       | forename | textbox | Monday   | &forename |
       | postCode | textbox | WA14 1EP | &postCode |
     And user clicks on the 'search' element
+    And user waits for 5000 miliseconds
     And user clicks on the 'firstRecordFromSearchResult' element
     Then user is now on the 'Prescribing' page
+    And user waits for 5000 miliseconds
     And user clicks on the 'sensitivitiesAndAllergies' element
+    And user waits for 10000 miliseconds
     And user clicks on the 'recordAllergy' element
     Then user is now on the 'Allergy' page
     And fills out the current form as follows
@@ -31,10 +34,12 @@ Feature: This feature file contain scenario related prescribing application
       | forename | textbox | &forename |       |
       | postCode | textbox | &postCode |       |
     And user clicks on the 'search' element
+    And user waits for 5000 miliseconds
     And user clicks on the 'firstRecordFromSearchResult' element
     Then user is now on the 'Prescribing' page
+    And user waits for 5000 miliseconds
     And user clicks on the 'sensitivitiesAndAllergies' element
-    And user waits until the 'recordAllergy' element is clickable 
+    And user waits for 10000 miliseconds
     And user clicks on the 'recordAllergy' element
     Then user is now on the 'Allergy' page
     And fills out the current form as follows

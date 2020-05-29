@@ -2,9 +2,11 @@ package com.kdp.kdpAutomationFramework.pages;
 
 import java.io.IOException;
 
+import org.apache.commons.configuration.ConfigurationException;
 import org.openqa.selenium.WebDriver;
 
-import com.kdp.kdpAutomationFramework.baseFunction.CommonFunction;
+import com.kdp.kdpAutomationFramework.baseFunction.UnitAction;
+import com.kdp.kdpAutomationFramework.baseFunction.UserAction;
 
 public class GenericCaseTaskDefination {
 	
@@ -20,13 +22,13 @@ public class GenericCaseTaskDefination {
 	 public static String newCase = "//button[@id='cx-header-new-generic-case']";
 
 	
-	public static void navigateToPage(WebDriver driver) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException{
+	public static void navigateToPage(WebDriver driver) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException, ConfigurationException, IOException{
 		System.out.println("Navigate to Generic case method is excuted----> " + Page.currentPage);
 		
-		CommonFunction.click(driver, "quickMenu");
-        CommonFunction.click(driver, "genericCase");
-		CommonFunction.click(driver, "configuration");
-		CommonFunction.click(driver, "genericCaseTaskDefinitions");
+		UserAction.click(driver, "quickMenu");
+		UserAction.click(driver, "genericCase");
+		UserAction.click(driver, "configuration");
+		UserAction.click(driver, "genericCaseTaskDefinitions");
 		
 	}
 	
@@ -34,8 +36,8 @@ public class GenericCaseTaskDefination {
 		System.out.println("assert on page ->user is now on Home page----> " + Page.currentPage);
 	}
 	
-	public static void createGenericCase(WebDriver driver) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
-		CommonFunction.click(driver, "newCase");
+	public static void createGenericCase(WebDriver driver) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException, ConfigurationException, IOException {
+		UserAction.click(driver, "newCase");
 	}
 		 		
 }

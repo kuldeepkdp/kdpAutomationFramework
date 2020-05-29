@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 
-import com.kdp.kdpAutomationFramework.baseFunction.CommonFunction;
+import com.kdp.kdpAutomationFramework.baseFunction.UnitAction;
 
 public class Login {
 	
@@ -15,7 +15,7 @@ public class Login {
 	
 	public static void navigateToPage(WebDriver driver) throws Exception{
 		 try {
-				driver.navigate().to(CommonFunction.GetData("url"));
+				driver.navigate().to(UnitAction.GetData("url"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -1,17 +1,20 @@
 package com.kdp.kdpAutomationFramework.pages;
 
+import java.io.IOException;
+
+import org.apache.commons.configuration.ConfigurationException;
 import org.openqa.selenium.WebDriver;
 
-import com.kdp.kdpAutomationFramework.baseFunction.CommonFunction;
+import com.kdp.kdpAutomationFramework.baseFunction.UnitAction;
 
 public class Configuration {
 	
     public static String description = "//input[@name='SystemCaseTaskDefinitionModel.Description']";
 	
 	
-	public static void navigateToPage(WebDriver driver) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException{
+	public static void navigateToPage(WebDriver driver) throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException, ConfigurationException, IOException{
 		System.out.println("Navigate to configuration method is excuted----> " + Page.currentPage);
-		CommonFunction.sendKeys(driver, "description", "This is automated test");
+		UnitAction.sendKeys(driver, "description", "This is automated test");
 
 	}
 	
