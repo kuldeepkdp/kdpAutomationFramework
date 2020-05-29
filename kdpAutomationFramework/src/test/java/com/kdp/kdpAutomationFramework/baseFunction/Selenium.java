@@ -21,7 +21,7 @@ public class Selenium {
 		
 		System.out.println("Before method is called");
 
-		String browser = CommonFunction.GetConfigData("browser");
+		String browser = UnitAction.GetConfigData("browser");
 		String IE;
 		String Firefox;
 		String Chrome;
@@ -45,7 +45,7 @@ public class Selenium {
 
 		}
 		   driver.manage().window().maximize();
-	       driver.navigate().to(CommonFunction.GetConfigData("url"));
+	       driver.navigate().to(UnitAction.GetConfigData("url"));
 
 	}
 

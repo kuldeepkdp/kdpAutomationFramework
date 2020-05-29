@@ -27,8 +27,8 @@ Dropbox-> user select 'ABC' from dropbox 'XYZ'
 Button->  user clicks on the 'ABC' button
 Link->    user clicks on the 'ABC' link
 ClickOnElement->  user clicks on the 'ABC' element
-Wait->    user waits until the 'ABC' element is clickable 
-Static Wait -> user waits for 5 seconds
+WaitUntil->    user waits until the 'ABC' element is clickable 
+Static Wait -> user waits for 5 miliseconds
 
 Navigation
 user navigates to the 'ABC' page|tab

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 
-import com.kdp.kdpAutomationFramework.baseFunction.CommonFunction;
+import com.kdp.kdpAutomationFramework.baseFunction.UnitAction;
 import com.kdp.kdpAutomationFramework.pages.Page;
 
 public class Prescribing {

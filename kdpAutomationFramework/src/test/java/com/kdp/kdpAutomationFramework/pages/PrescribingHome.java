@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.openqa.selenium.WebDriver;
 
-import com.kdp.kdpAutomationFramework.baseFunction.CommonFunction;
+import com.kdp.kdpAutomationFramework.baseFunction.UnitAction;
 import com.kdp.kdpAutomationFramework.pages.Page;
 
 public class PrescribingHome {
@@ -49,7 +49,7 @@ public class PrescribingHome {
 	public String passworda = "//input[@id='LoginModel_Password']";
 	public String companiesa = "//*[@aria-owns='CompanyId_listbox']";
 	public String notesa = "//*[@id='VisitsCaseDetailViewModel_Notes']";
-	public String visitTypea = "//*[@aria-owns='VisitsCaseDetailViewModel_VisitTypeId_listbox']";
+	public String VisitTypea = "//*[@aria-owns='VisitsCaseDetailViewModel_VisitTypeId_listbox']";
 	public String targetVisitDatea = "//*[@id='VisitsCaseDetailViewModel_VisitDate']";
 	public String createVisitCasePopupa = "//div[contains(text(),'Create Visit Case - Select Entity')]";
 	public String searchUsing = "//select[@id='searchUsingDropdown']";
