@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -119,26 +120,51 @@ public class UnitAction {
         return xPath;
     }
 
-    public static WebElement getElement(WebDriver driver, String element) throws ConfigurationException,
-            SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, InterruptedException {
+    // To get JavascriptExecutor object
+    public static JavascriptExecutor getJavascriptExecutor(WebDriver driver) {
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        return javascriptExecutor;
+    }
+
+    //Wait until Document is Ready
+    public static void waitUntilDocumentIsReady(WebDriver driver) throws InterruptedException {
+
+        for (int i = 0; i < 30; i++) {         
+            // To check page ready state.
+            if (getJavascriptExecutor(driver).executeScript("return document.readyState").toString()
+                    .equals("complete")) {
+                break;
+            }
+            else {
+                Thread.sleep(1000);
+            }
+        }
+    }
+    
+    //To get WebElement
+    public static WebElement getElement(WebDriver driver, String element)
+            throws ConfigurationException, SecurityException, InstantiationException, IllegalAccessException,
+            ClassNotFoundException, IOException, InterruptedException {
         String xPath = getXPath(element);
+        waitUntilDocumentIsReady(driver);
         WebDriverWait wait = new WebDriverWait(driver, 30);
-        /*wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xPath))));
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xPath))));*/
         wait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath(xPath))));
         return driver.findElement(By.xpath(xPath));
     }
 
+    // //To get WebElement list
     public static List<WebElement> getElements(WebDriver driver, String element) throws ConfigurationException,
-            SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException {
+            SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, InterruptedException {
         String xPath = getXPath(element);
+        waitUntilDocumentIsReady(driver);
         WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath(xPath))));
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath(xPath))));
         return driver.findElements(By.xpath(xPath));
     }
 
-    public static void sendKeys(WebDriver driver, String element, String value) throws ConfigurationException,
-            SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, InterruptedException {
+    public static void sendKeys(WebDriver driver, String element, String value)
+            throws ConfigurationException, SecurityException, InstantiationException, IllegalAccessException,
+            ClassNotFoundException, IOException, InterruptedException {
 
         UnitAction.getElement(driver, element).sendKeys(value);
     }
