@@ -29,6 +29,7 @@ Link->    user clicks on the 'ABC' link
 ClickOnElement->  user clicks on the 'ABC' element
 WaitUntil->    user waits until the 'ABC' element is clickable 
 Static Wait -> user waits for 5 miliseconds
+ApplicationSpecificWaitUntilForPageLoad -> user waits until page is loaded
 
 Navigation
 user navigates to the 'ABC' page|tab

@@ -59,48 +59,7 @@ public class UserActionStepDefination {
 	public void selectFromStandardDropbox(String value, String element) throws Throwable {
 		UiControl.dropbox(driver, element, value);
 	}
-/*
-	@When("^fills out the current form as follows$")
-	public void fillOutCurrentForm(DataTable dt) throws Throwable {
 
-		List<Map<String, String>> list = dt.asMaps(String.class, String.class);
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).get("Type").equals("dropbox")) {
-				AppSpecificUiControl.selectFromStandardDropbox(driver, list.get(i).get("Element"),
-						list.get(i).get("Value"));
-				if (list.get(i).get("Alias") != null) {
-					System.out.println("Set the alias");
-				}
-			} else if (list.get(i).get("Type").equals("textbox")) {
-				
-				String inputValue = list.get(i).get("Value");
-				
-				if(list.get(i).get("Value").startsWith("$")) {
-					
-					inputValue=CommonFunction.GetData(list.get(i).get("Value"));
-				}
-				if(list.get(i).get("Value").startsWith("&")) {
-					
-					inputValue=CommonFunction.GetRunTimeData(list.get(i).get("Value"));
-				}
-				
-				if (!list.get(i).get("Alias").equals("")) {
-					System.out.println("Set the alias");
-					CommonFunction.SetRunTimeData(list.get(i).get("Alias"), inputValue);
-				}
-				
-				CommonFunction.sendKeys(driver, list.get(i).get("Element"), inputValue);
-			}
-
-			else if (list.get(i).get("Type").equals("date")) {
-				CommonFunction.sendKeys(driver, list.get(i).get("Element"), list.get(i).get("Value"));
-			} else {
-				CommonFunction.click(driver, list.get(i).get("Element"));
-			}
-		}
-
-	}*/
-	
 	@Then("user is shown '(.*)' element with '(.*)' text")
 	public void checkElementText(String element, String value) throws Throwable {
 		UserAction.checkElementText(driver, element, value);
@@ -113,6 +72,13 @@ public class UserActionStepDefination {
 		UserAction.waitFor(time);
 
 	}
+	
+	@When("^user waits until page is loaded$")
+    public void applicationSpecificWaitsUntilPageIsLoaded() throws Throwable {
+        
+        UserAction.waitUntilPageIsLoaded(driver);
+
+    }
 	
 	@When("^fills out the current form as follows$")
 	public void fillOutCurrentForm(DataTable dt) throws Throwable {

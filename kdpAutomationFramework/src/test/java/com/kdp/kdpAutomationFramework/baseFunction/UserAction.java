@@ -8,6 +8,8 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.kdp.kdpAutomationFramework.navigation.AssertOn;
 import com.kdp.kdpAutomationFramework.navigation.Navigate;
@@ -63,6 +65,8 @@ public class UserAction {
             InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, InterruptedException {
            
            WebElement webElement = UnitAction.getElement(driver, element);
+           WebDriverWait wait = new WebDriverWait(driver, 30);
+           wait.until(ExpectedConditions.elementToBeClickable(webElement));
            webElement.click();          
     }
 
@@ -105,5 +109,33 @@ public class UserAction {
         WebElement webElement = UnitAction.getElement(driver, element);
         String actual = webElement.getText();
         Assert.assertEquals(value, actual);
+    }
+    
+    //Application specfic check to ensure page is loaded
+    public static void waitUntilPageIsLoaded(WebDriver driver) throws InterruptedException{
+        
+        boolean displayed;
+        int count = 0;
+        
+        //Wait until Progress bar element disappear
+        while (count < 30){
+            
+            try {
+                Thread.sleep(1000);
+                displayed = driver.findElement(By.xpath("//div[@class='loadingStyle']")).isDisplayed();
+                if (!displayed)
+                {
+                    Thread.sleep(1000);
+                    break;
+                }
+
+                count++;
+              }
+              catch(Exception e) {
+                  Thread.sleep(1000);
+                  break;
+              }
+        }
+        
     }
 }
