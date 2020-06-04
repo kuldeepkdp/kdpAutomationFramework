@@ -69,12 +69,17 @@ public class UserAction {
            wait.until(ExpectedConditions.elementToBeClickable(webElement));
            webElement.click();          
     }
-
     
+    public static void sendKeys(WebDriver driver, String element, String value)
+            throws Exception {
+
+        UnitAction.getElement(driver, element).sendKeys(value);
+    }
+
     // Set the value on mentioned UI controls
     public static void setValue(WebDriver driver, String element, String type, String value, String alias)
             throws Exception {
-        String processedValue = UnitAction.getValue(value);
+        String processedValue = UnitAction.getProcessedValue(value);
 
         if (type.equalsIgnoreCase("textbox")) {
 

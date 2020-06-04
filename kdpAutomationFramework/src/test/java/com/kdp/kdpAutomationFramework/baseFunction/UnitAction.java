@@ -162,13 +162,6 @@ public class UnitAction {
         return driver.findElements(By.xpath(xPath));
     }
 
-    public static void sendKeys(WebDriver driver, String element, String value)
-            throws ConfigurationException, SecurityException, InstantiationException, IllegalAccessException,
-            ClassNotFoundException, IOException, InterruptedException {
-
-        UnitAction.getElement(driver, element).sendKeys(value);
-    }
-
     public static void waitUntilElementToBeClickable(WebDriver driver, WebElement element) throws SecurityException,
             InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -188,7 +181,7 @@ public class UnitAction {
 
     // This method will return value from properties file, random values or just the
     // passed value as per value format
-    public static String getValue(String value) throws Exception {
+    public static String getProcessedValue(String value) throws Exception {
         if (value.startsWith("$")) {
             return UnitAction.GetData(value);
         }
