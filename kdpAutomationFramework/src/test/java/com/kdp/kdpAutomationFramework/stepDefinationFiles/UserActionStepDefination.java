@@ -1,9 +1,14 @@
 package com.kdp.kdpAutomationFramework.stepDefinationFiles;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.kdp.kdpAutomationFramework.baseFunction.UiControl;
 import com.kdp.kdpAutomationFramework.baseFunction.UnitAction;
@@ -37,7 +42,7 @@ public class UserActionStepDefination {
 
 	@When("user sets the '(.*)' field as '(.*)'")
 	public void setFieldValue(String element, String value) throws Throwable {
-		UnitAction.sendKeys(driver, element, value);
+	    UserAction.sendKeys(driver, element, value);
 	}
 
 	@When("user clicks on the '(.*)' element")
@@ -66,7 +71,7 @@ public class UserActionStepDefination {
 		
 	}
 	
-	@When("^user waits for (\\d+) miliseconds$")
+	@When("^user waits for '(.*)' miliseconds$")
 	public void userWaitsForSeconds(int time) throws Throwable {
 		
 		UserAction.waitFor(time);
@@ -89,5 +94,23 @@ public class UserActionStepDefination {
 		{ 
 		   UserAction.setValue(driver, map.get("Element"), map.get("Type"), map.get("Value"), map.get("Alias"));
 		}			
-	}	
+	}
+	
+	@When("^user is shown a '(.*)' list which is equal to following list$")
+    public void tableConatiningRows(String element, DataTable dt ) throws Throwable {
+	    List<String> rawRow = dt.asList(String.class);
+	    List<WebElement> elements= UnitAction.getElements(driver, element);
+	    List<String> actualRow = new ArrayList<String>();
+	    List<String> expectedRow = new ArrayList<String>();
+	    
+	    for(String value : rawRow) {
+	        expectedRow.add(UnitAction.getProcessedValue(value));
+        }
+	    
+	    for(WebElement a : elements) {
+	        actualRow.add(a.getText());
+	    }
+	    
+	   assertTrue("Two lists are not equal", actualRow.equals(expectedRow));
+    }
 }

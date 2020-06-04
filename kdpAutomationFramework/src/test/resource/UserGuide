@@ -4,6 +4,11 @@ https://www.insightly.com/
 Prescribing
 https://qa1.vnext.xyz/release1-10-Web
 
+CES
+Url : https://cestestexternal-idp.civicaed.com.au/
+User : dhaval.kacha
+Pass : Testing123
+
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 Properties file key format
 testEnvironment-> $key
@@ -30,6 +35,7 @@ ClickOnElement->  user clicks on the 'ABC' element
 WaitUntil->    user waits until the 'ABC' element is clickable 
 Static Wait -> user waits for 5 miliseconds
 ApplicationSpecificWaitUntilForPageLoad -> user waits until page is loaded
+ApplicationSpecificForLogin-> user login as '(.*)' user
 
 Navigation
 user navigates to the 'ABC' page|tab

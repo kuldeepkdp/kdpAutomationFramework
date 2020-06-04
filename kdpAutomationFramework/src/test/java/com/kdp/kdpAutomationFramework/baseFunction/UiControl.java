@@ -24,8 +24,7 @@ public class UiControl {
     }
 
     // handling textbox
-    public static void textbox(WebDriver driver, String element, String value) throws SecurityException,
-            InstantiationException, IllegalAccessException, ClassNotFoundException, InterruptedException, ConfigurationException, IOException {
-            UnitAction.sendKeys(driver, element, value);
+    public static void textbox(WebDriver driver, String element, String value) throws Exception {
+            UserAction.sendKeys(driver, element, value);
     }
 }
