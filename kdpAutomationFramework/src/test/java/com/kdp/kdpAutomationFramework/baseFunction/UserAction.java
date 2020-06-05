@@ -1,5 +1,9 @@
 package com.kdp.kdpAutomationFramework.baseFunction;
 
+
+
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,7 +18,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.kdp.kdpAutomationFramework.navigation.AssertOn;
 import com.kdp.kdpAutomationFramework.navigation.Navigate;
 
-import junit.framework.Assert;
 
 public class UserAction {
 
@@ -89,6 +92,14 @@ public class UserAction {
         if (type.equalsIgnoreCase("dropbox")) {
             UiControl.dropbox(driver, element, processedValue);
         }
+        
+        if (type.equalsIgnoreCase("date")) {
+            UiControl.date(driver, element, processedValue);
+        }
+        
+        if (type.equalsIgnoreCase("lookup")) {
+            UiControl.lookup(driver, element, processedValue);
+        }
 
         UnitAction.setAlias(alias, processedValue);
     }
@@ -108,12 +119,13 @@ public class UserAction {
         }
     }
 
-    public static void checkElementText(WebDriver driver, String element, String value)
-            throws SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, ConfigurationException, IOException, InterruptedException {
+    public static void elementTextIsEqual(WebDriver driver, String element, String value)
+            throws Exception {
         
+        String expectedValue = UnitAction.getProcessedValue(value);
         WebElement webElement = UnitAction.getElement(driver, element);
-        String actual = webElement.getText();
-        Assert.assertEquals(value, actual);
+        String actualValue = webElement.getText();
+        assertEquals("element does not contain " + expectedValue , expectedValue, actualValue);
     }
     
     //Application specfic check to ensure page is loaded

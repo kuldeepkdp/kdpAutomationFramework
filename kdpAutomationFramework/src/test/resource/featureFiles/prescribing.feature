@@ -1,6 +1,40 @@
 @ActiveFeature
 Feature: This feature file contain scenario related prescribing application
 
+  @dev
+  Scenario: Verify that user can add allergy
+    When user navigates to the 'PrescribingHome' page
+    And fills out the current form as follows
+      | Element     | Type    | Value           | Alias     |
+      | searchUsing | dropbox | Patient Details |           |
+      | surname     | textbox | smith           |           |
+      | forename    | textbox | Monday          |           |
+      | gender      | dropbox | $gender         |           |
+      | postCode    | textbox | WA14 1EP        | &postCode |
+    And user clicks on the 'Search' button
+    And user waits until page is loaded
+    Then user is shown a 'searchResults' list which is equal to following list
+      | 317 975 3676 | 317 975 3676 | SMITH, Monday | $gender | 19-Aug-1999 | Station House, Altricnham, WA14 1EP |
+    And user clicks on the 'firstRecordFromSearchResult' element
+    Then user is now on the 'Prescribing' page
+    And user waits until page is loaded
+    And user navigates to the 'SensitivitiesAndAllergies' page
+    And user waits until page is loaded
+    Then user is shown 'header' element with 'Sensitivities And Allergies History' text
+    And user clicks on the 'Record Allergy' button
+    And fills out the current form as follows
+      | Element      | Type    | Value                | Alias |
+      | drug         | textbox | RANDOM_STRING        |       |
+      | category     | dropbox | ALLERGIC REACTION    |       |
+      | sourceOfInfo | dropbox | Patient              |       |
+      | checkedBy    | lookup  | PATEL, Jitendra (Mr) |       |
+      | checkedDate  | date    | CURRENT_DATE         |       |
+      | sourceNotes  | textbox | &postCode            |       |
+
+    
+    
+    
+
   @Active
   Scenario: aaa
     When user navigates to the 'PrescribingHome' page
@@ -24,7 +58,7 @@ Feature: This feature file contain scenario related prescribing application
     Then user is now on the 'Allergy' page
     And fills out the current form as follows
       | Element     | Type    | Value                             | Alias        |
-      | drug        | textbox | &forename                         |              |
+      | drug        | textbox |                                   |              |
       | dateOfOnset | textbox | test date of onset                |              |
       | sourceNotes | textbox | kdp source note for future script | &sourceNotes |
 
@@ -51,7 +85,7 @@ Feature: This feature file contain scenario related prescribing application
       | dateOfOnset | textbox | test date of onset |       |
       | sourceNotes | textbox | &sourceNotes       |       |
 
-  @dev
+  @Active
   Scenario: ccc
     When user navigates to the 'PrescribingHome' page
     And fills out the current form as follows
@@ -61,25 +95,4 @@ Feature: This feature file contain scenario related prescribing application
     And user clicks on the 'search' element
     And user waits until page is loaded
     Then user is shown a 'searchResults' list which is equal to following list
-      | 317 975 3676 | 317 975 3676 |SMITH, Monday | $gender    | 19-Aug-1999 | Station House, Altricnham, WA14 1EP |
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      | 317 975 3676 | 317 975 3676 | SMITH, Monday | $gender | 19-Aug-1999 | Station House, Altricnham, WA14 1EP |

@@ -67,7 +67,7 @@ public class UserActionStepDefination {
 
 	@Then("user is shown '(.*)' element with '(.*)' text")
 	public void checkElementText(String element, String value) throws Throwable {
-		UserAction.checkElementText(driver, element, value);
+		UserAction.elementTextIsEqual(driver, element, value);
 		
 	}
 	

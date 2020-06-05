@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -178,6 +180,17 @@ public class UnitAction {
         }
         return builder.toString();
     }
+    
+    // To get date
+    public static String getCurrentDate() {
+
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = formatter.format(date);
+        return strDate;
+
+    }
+        
 
     // This method will return value from properties file, random values or just the
     // passed value as per value format
@@ -185,9 +198,20 @@ public class UnitAction {
         if (value.startsWith("$")) {
             return UnitAction.GetData(value);
         }
-        if (value.startsWith("&")) {
+        else if (value.startsWith("&")) {
             return UnitAction.GetRunTimeData(value);
-        } else
+        } 
+        
+        else if (value.equals("RANDOM_STRING")) {
+            return UnitAction.generateString(8);
+        } 
+        
+        else if (value.equals("CURRENT_DATE")) {
+            return UnitAction.getCurrentDate();
+        } 
+        
+        
+        else
             return value;
     }
 
