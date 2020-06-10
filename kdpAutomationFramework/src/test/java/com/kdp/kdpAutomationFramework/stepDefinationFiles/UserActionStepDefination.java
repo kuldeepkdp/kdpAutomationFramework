@@ -1,9 +1,11 @@
 package com.kdp.kdpAutomationFramework.stepDefinationFiles;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +73,12 @@ public class UserActionStepDefination {
 		
 	}
 	
+	@Then("user is shown '(.*)' element containing '(.*)' text")
+    public void checkElementContainingText(String element, String value) throws Throwable {
+        UserAction.elementContainingText(driver, element, value);
+        
+    }
+	
 	@When("^user waits for '(.*)' miliseconds$")
 	public void userWaitsForSeconds(int time) throws Throwable {
 		
@@ -96,8 +104,8 @@ public class UserActionStepDefination {
 		}			
 	}
 	
-	@When("^user is shown a '(.*)' list which is equal to following list$")
-    public void tableConatiningRows(String element, DataTable dt ) throws Throwable {
+	@Then("^user is shown a '(.*)' list which is equal to following list$")
+    public void ListEqualsToList(String element, DataTable dt ) throws Throwable {
 	    List<String> rawRow = dt.asList(String.class);
 	    List<WebElement> elements= UnitAction.getElements(driver, element);
 	    List<String> actualRow = new ArrayList<String>();
@@ -112,5 +120,44 @@ public class UserActionStepDefination {
 	    }
 	    
 	   assertTrue("Two lists are not equal", actualRow.equals(expectedRow));
+    }
+	
+	@Then("^user is shown a '(.*)' list which contains following list$")
+    public void listContainingSublist(String element, DataTable dt ) throws Throwable {
+        List<String> rawRow = dt.asList(String.class);
+        List<WebElement> elements= UnitAction.getElements(driver, element);
+        List<String> actualRow = new ArrayList<String>();
+        List<String> expectedRow = new ArrayList<String>();
+        
+        for(String value : rawRow) {
+            expectedRow.add(UnitAction.getProcessedValue(value));
+        }
+        
+        for(WebElement a : elements) {
+            actualRow.add(a.getText());
+        }
+        
+       assertTrue("List " + element + " does not contain expected column value", actualRow.containsAll(expectedRow));
+          
+    }
+	
+	@Then("^user is shown a '(.*)' list which contains following list in sequence$")
+    public void listContainingSublistInSequence(String element, DataTable dt ) throws Throwable {
+        List<String> rawRow = dt.asList(String.class);
+        List<WebElement> elements= UnitAction.getElements(driver, element);
+        List<String> actualRow = new ArrayList<String>();
+        List<String> expectedRow = new ArrayList<String>();
+        
+        for(String value : rawRow) {
+            expectedRow.add(UnitAction.getProcessedValue(value));
+        }
+        
+        for(WebElement a : elements) {
+            actualRow.add(a.getText());
+        }
+                
+       int index=Collections.indexOfSubList(actualRow , expectedRow);
+       assertFalse("List " + element + " does not contain expected column value in sequence", index== -1);
+       
     }
 }

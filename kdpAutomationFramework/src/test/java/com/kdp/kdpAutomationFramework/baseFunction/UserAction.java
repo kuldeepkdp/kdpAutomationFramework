@@ -3,6 +3,7 @@ package com.kdp.kdpAutomationFramework.baseFunction;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -126,6 +127,14 @@ public class UserAction {
         WebElement webElement = UnitAction.getElement(driver, element);
         String actualValue = webElement.getText();
         assertEquals("element does not contain " + expectedValue , expectedValue, actualValue);
+    }
+    
+    public static void elementContainingText(WebDriver driver, String element, String value)
+            throws Exception {
+        
+        String expectedValue = UnitAction.getProcessedValue(value);
+        WebElement webElement = UnitAction.getElement(driver, element);
+        assertTrue("Element does not contain text " + expectedValue, webElement.getText().contains(expectedValue));
     }
     
     //Application specfic check to ensure page is loaded

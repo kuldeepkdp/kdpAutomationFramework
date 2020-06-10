@@ -1,7 +1,7 @@
 @ActiveFeature
 Feature: This feature file contain scenario related prescribing application
 
-  @dev
+  @Active
   Scenario: Verify that user can add allergy
     When user navigates to the 'PrescribingHome' page
     And fills out the current form as follows
@@ -31,7 +31,29 @@ Feature: This feature file contain scenario related prescribing application
       | checkedDate  | date    | CURRENT_DATE         |       |
       | sourceNotes  | textbox | &postCode            |       |
 
-    
+  
+  @dev
+  Scenario: Verify that user can add allergy
+   When user navigates to the 'PrescribingHome' page
+   Then user is shown 'header' element containing 'Find a Person' text
+   And fills out the current form as follows
+      | Element     | Type    | Value           | Alias     |
+      | searchUsing | dropbox | Patient Details |           |
+      | surname     | textbox | smith           |           |
+      | forename    | textbox | Monday          |           |
+      | gender      | dropbox | $gender         |           |
+      | postCode    | textbox | WA14 1EP        | &postCode |
+    And user clicks on the 'Search' button
+    And user waits until page is loaded
+   Then user is shown a 'searchResults' list which contains following list
+     | 317 975 3676 | 317 975 3676 | SMITH, Monday | Station House, Altricnham, WA14 1EP | 19-Aug-1999 | $gender |
+   Then user is shown a 'searchResults' list which contains following list in sequence
+      | 317 975 3676 | 317 975 3676 | SMITH, Monday | Station House, Altricnham, WA14 1EP | 19-Aug-1999 | $gender |
+   
+   
+   
+   
+   
     
     
 
