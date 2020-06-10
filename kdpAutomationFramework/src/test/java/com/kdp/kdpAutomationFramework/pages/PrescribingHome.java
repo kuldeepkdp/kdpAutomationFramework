@@ -57,6 +57,7 @@ public class PrescribingHome {
 	public String gender = "//select[@id='genderTypeDropdown']";
 	public String firstRecordFromSearchResult = "//table[@id='searchresult']/tbody/tr[1]";
 	public String searchResults = "//table[@id='searchresult']/tbody//td";
+	public String header = "(//h3)[2]";
 
 
 	
