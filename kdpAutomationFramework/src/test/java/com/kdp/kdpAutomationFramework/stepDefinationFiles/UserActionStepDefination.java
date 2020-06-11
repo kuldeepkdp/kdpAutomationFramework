@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -159,5 +161,21 @@ public class UserActionStepDefination {
        int index=Collections.indexOfSubList(actualRow , expectedRow);
        assertFalse("List " + element + " does not contain expected column value in sequence", index== -1);
        
+    }
+	
+	@Then("^user is shown '(.*)' element containing following text$")
+    public void elementContainingFollowingText(String element, DataTable dt ) throws Throwable {
+        List<String> rawRow = dt.asList(String.class);
+        WebElement elements= UnitAction.getElement(driver, element);
+        String actualText = elements.getText().replaceAll("\\s", "");
+        
+        List<String> expectedRow = new ArrayList<String>();
+        for(String value : rawRow) {
+            expectedRow.add(UnitAction.getProcessedValue(value));
+        }
+        
+        String expectedValue= StringUtils.join(expectedRow, "").replaceAll("\\s", "");
+         
+        assertTrue("Element does not contain text " + expectedValue, actualText.contains(expectedValue));
     }
 }

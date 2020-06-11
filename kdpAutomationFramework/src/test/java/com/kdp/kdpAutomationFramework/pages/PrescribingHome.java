@@ -58,7 +58,7 @@ public class PrescribingHome {
 	public String firstRecordFromSearchResult = "//table[@id='searchresult']/tbody/tr[1]";
 	public String searchResults = "//table[@id='searchresult']/tbody//td";
 	public String header = "(//h3)[2]";
-
+	public String searchResultsTable = "//table[@id='searchresult']";
 
 	
 
