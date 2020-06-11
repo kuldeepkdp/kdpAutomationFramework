@@ -40,16 +40,10 @@ Feature: This feature file contain scenario related prescribing application
       | Element     | Type    | Value           | Alias     |
       | searchUsing | dropbox | Patient Details |           |
       | surname     | textbox | smith           |           |
-      | forename    | textbox | Monday          |           |
-      | gender      | dropbox | $gender         |           |
-      | postCode    | textbox | WA14 1EP        | &postCode |
     And user clicks on the 'Search' button
-    And user waits until page is loaded
-   Then user is shown a 'searchResults' list which contains following list
-     | 317 975 3676 | 317 975 3676 | SMITH, Monday | Station House, Altricnham, WA14 1EP | 19-Aug-1999 | $gender |
-   Then user is shown a 'searchResults' list which contains following list in sequence
-      | 317 975 3676 | 317 975 3676 | SMITH, Monday | Station House, Altricnham, WA14 1EP | 19-Aug-1999 | $gender |
-   
+    And user waits until page is loaded   
+   Then user is shown 'searchResultsTable' element containing following text
+    | 317 975 3676 | 317 975 3676 | SMITH, Monday | $gender | 19-Aug-1999 | Station House, Altricnham, WA14 1EP |
    
    
    
