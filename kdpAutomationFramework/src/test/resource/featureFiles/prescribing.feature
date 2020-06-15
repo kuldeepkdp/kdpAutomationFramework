@@ -1,7 +1,7 @@
 @ActiveFeature
 Feature: This feature file contain scenario related prescribing application
 
-  @Active
+  @dev
   Scenario: Verify that user can add allergy
     When user navigates to the 'PrescribingHome' page
     And fills out the current form as follows
@@ -24,32 +24,37 @@ Feature: This feature file contain scenario related prescribing application
     And user clicks on the 'Record Allergy' button
     And fills out the current form as follows
       | Element      | Type    | Value                | Alias |
-      | drug         | textbox | RANDOM_STRING        |       |
+      | drug         | textbox | RANDOM_STRING        | &drug |
       | category     | dropbox | ALLERGIC REACTION    |       |
       | sourceOfInfo | dropbox | Patient              |       |
       | checkedBy    | lookup  | PATEL, Jitendra (Mr) |       |
       | checkedDate  | date    | CURRENT_DATE         |       |
       | sourceNotes  | textbox | &postCode            |       |
+    And user clicks on the 'ok' element
+    And user waits until page is loaded
+    And user clicks on the 'yes' element
+    And user waits until page is loaded
+    Then user is shown 'sensitivitiesAndAllergiesHistory' table containing following columns
+      | Substance | Category | Source of Info | Date of Onset | Checked By | Recorded On | End Date |
+    Then user is shown 'sensitivitiesAndAllergiesHistory' table containing following row
+      | &drug | ALLERGIC REACTION | Patient | PATEL, Jitendra (Mr)|
 
-  
-  @dev
+  @Active
   Scenario: Verify that user can add allergy
-   When user navigates to the 'PrescribingHome' page
-   Then user is shown 'header' element containing 'Find a Person' text
-   And fills out the current form as follows
-      | Element     | Type    | Value           | Alias     |
-      | searchUsing | dropbox | Patient Details |           |
-      | surname     | textbox | smith           |           |
+    When user navigates to the 'PrescribingHome' page
+    Then user is shown 'header' element containing 'Find a Person' text
+    And fills out the current form as follows
+      | Element     | Type    | Value           | Alias |
+      | searchUsing | dropbox | Patient Details |       |
+      | surname     | textbox | smith           |       |
     And user clicks on the 'Search' button
-    And user waits until page is loaded   
-   Then user is shown 'searchResultsTable' element containing following text
-    | 317 975 3676 | 317 975 3676 | SMITH, Monday | $gender | 19-Aug-1999 | Station House, Altricnham, WA14 1EP |
-   
-   
-   
-   
-    
-    
+    And user waits until page is loaded
+    Then user is shown 'searchResultsTable' table containing following columns
+      | NHS Number | External System ID | Name | Gender | Date of Birth | Address |
+    Then user is shown 'searchResultsTable' table containing following row
+      | 317 975 3676 | 317 975 3676 | SMITH, Monday | $gender | 19-Aug-1999 | Station House, Altricnham, WA14 1EP |
+    Then user is shown 'searchResultsTable' element containing following text
+      | 317 975 3676 | 317 975 3676 | SMITH, Monday | $gender | 19-Aug-1999 | Station House, Altricnham, WA14 1EP |
 
   @Active
   Scenario: aaa

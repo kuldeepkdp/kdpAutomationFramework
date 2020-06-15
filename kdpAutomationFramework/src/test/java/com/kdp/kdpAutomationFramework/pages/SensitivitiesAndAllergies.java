@@ -17,6 +17,9 @@ public class SensitivitiesAndAllergies {
     public String checkedBy = "//input[@id='auto-comp-user-checked-by']";
     public String checkedDate = "//input[@id='checkedDate']";
     public String sourceNotes = "//textarea[@id='SourceNotes']";
+    public String sensitivitiesAndAllergiesHistory = "//table[@id='allergysearchresult']";
+    public String ok = "//button[@id='allergyOkButton']";
+    public String yes = "//div[@id='confirm_modal_record_drug_free_text']//button[@class='btn btn-primary'][contains(text(),'Yes')]";
 
     public static void assertOnPage(WebDriver driver) throws InterruptedException, SecurityException,
             InstantiationException, IllegalAccessException, ClassNotFoundException {

@@ -166,8 +166,8 @@ public class UserActionStepDefination {
 	@Then("^user is shown '(.*)' element containing following text$")
     public void elementContainingFollowingText(String element, DataTable dt ) throws Throwable {
         List<String> rawRow = dt.asList(String.class);
-        WebElement elements= UnitAction.getElement(driver, element);
-        String actualText = elements.getText().replaceAll("\\s", "");
+        WebElement webElement= UnitAction.getElement(driver, element);
+        String actualText = webElement.getText().replaceAll("\\s", "");
         
         List<String> expectedRow = new ArrayList<String>();
         for(String value : rawRow) {
@@ -178,4 +178,36 @@ public class UserActionStepDefination {
          
         assertTrue("Element does not contain text " + expectedValue, actualText.contains(expectedValue));
     }
+	
+	@Then("^user is shown '(.*)' table containing following columns$")
+    public void elementContainingFollowingColumns(String element, DataTable dt ) throws Throwable {
+        List<String> rawRow = dt.asList(String.class);
+        WebElement webElement= UnitAction.getElement(driver, element);
+        String actualText = webElement.getText().replaceAll("\\s", "");
+        
+        List<String> expectedRow = new ArrayList<String>();
+        for(String value : rawRow) {
+            expectedRow.add(UnitAction.getProcessedValue(value));
+        }
+        
+        String expectedValue= StringUtils.join(expectedRow, "").replaceAll("\\s", "");
+         
+        assertTrue("Element does not contain text " + expectedValue, actualText.contains(expectedValue));
+    }
+	
+	@Then("^user is shown '(.*)' table containing following row$")
+    public void elementContainingFollowingRow(String element, DataTable dt ) throws Throwable {
+        List<String> rawRow = dt.asList(String.class);
+        WebElement webElement= UnitAction.getElement(driver, element);
+        String actualText = webElement.getText().replaceAll("\\s", "");
+        
+        List<String> expectedRow = new ArrayList<String>();
+        for(String value : rawRow) {
+            expectedRow.add(UnitAction.getProcessedValue(value));
+        }
+        
+        String expectedValue= StringUtils.join(expectedRow, "").replaceAll("\\s", "");
+         
+        assertTrue("Element does not contain text " + expectedValue, actualText.contains(expectedValue));
+    }   
 }
