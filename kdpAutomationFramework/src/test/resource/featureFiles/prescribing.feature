@@ -1,9 +1,10 @@
 @ActiveFeature
 Feature: This feature file contain scenario related prescribing application
 
-  @dev
+  @Active
   Scenario: Verify that user can add allergy
     When user navigates to the 'PrescribingHome' page
+    And user waits for '2' seconds
     And fills out the current form as follows
       | Element     | Type    | Value           | Alias     |
       | searchUsing | dropbox | Patient Details |           |
@@ -37,9 +38,9 @@ Feature: This feature file contain scenario related prescribing application
     Then user is shown 'sensitivitiesAndAllergiesHistory' table containing following columns
       | Substance | Category | Source of Info | Date of Onset | Checked By | Recorded On | End Date |
     Then user is shown 'sensitivitiesAndAllergiesHistory' table containing following row
-      | &drug | ALLERGIC REACTION | Patient | PATEL, Jitendra (Mr)|
+      | &drug | ALLERGIC REACTION | Patient | PATEL, Jitendra (Mr) |
 
-  @Active
+  @dev
   Scenario: Verify that user can add allergy
     When user navigates to the 'PrescribingHome' page
     Then user is shown 'header' element containing 'Find a Person' text
@@ -47,8 +48,11 @@ Feature: This feature file contain scenario related prescribing application
       | Element     | Type    | Value           | Alias |
       | searchUsing | dropbox | Patient Details |       |
       | surname     | textbox | smith           |       |
+      | forename    | textbox | Monday          |       |
+    Then user is shown a 'search' element which is enabled
     And user clicks on the 'Search' button
     And user waits until page is loaded
+    Then user is not shown a 'firstRecordFromSearchResult' element
     Then user is shown 'searchResultsTable' table containing following columns
       | NHS Number | External System ID | Name | Gender | Date of Birth | Address |
     Then user is shown 'searchResultsTable' table containing following row
@@ -91,6 +95,7 @@ Feature: This feature file contain scenario related prescribing application
       | surname  | textbox | $surname  |       |
       | forename | textbox | &forename |       |
       | postCode | textbox | &postCode |       |
+    Then user is shown a 'search' element which is enabled
     And user clicks on the 'search' element
     And user waits until page is loaded
     And user clicks on the 'firstRecordFromSearchResult' element
