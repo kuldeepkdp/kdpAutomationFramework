@@ -44,11 +44,7 @@ public class UserActionStepDefination {
 	    UserAction.assertOnPage(driver, pageName);
 	}
 
-	@When("user sets the '(.*)' field as '(.*)'")
-	public void setFieldValue(String element, String value) throws Throwable {
-	    UserAction.sendKeys(driver, element, value);
-	}
-
+	
 	@When("user clicks on the '(.*)' element")
 	public void click(String element) throws Throwable {
 	    UserAction.click(driver, element);
@@ -64,10 +60,6 @@ public class UserActionStepDefination {
 		
 	}
 
-	@When("user select '(.*)' from dropbox '(.*)'")
-	public void selectFromStandardDropbox(String value, String element) throws Throwable {
-		UiControl.dropbox(driver, element, value);
-	}
 
 	@Then("user is shown '(.*)' element with '(.*)' text")
 	public void checkElementText(String element, String value) throws Throwable {
@@ -81,10 +73,10 @@ public class UserActionStepDefination {
         
     }
 	
-	@When("^user waits for '(.*)' miliseconds$")
-	public void userWaitsForSeconds(int time) throws Throwable {
+	@When("^user waits for '(.*)' seconds$")
+	public void userWaitsForSeconds(int seconds) throws Throwable {
 		
-		UserAction.waitFor(time);
+		UserAction.waitFor(seconds);
 
 	}
 	
@@ -209,5 +201,29 @@ public class UserActionStepDefination {
         String expectedValue= StringUtils.join(expectedRow, "").replaceAll("\\s", "");
          
         assertTrue("Element does not contain text " + expectedValue, actualText.contains(expectedValue));
-    }   
+    }
+	
+	@Then("^user is shown a '(.*)' element$")
+    public void elementIsDisplayed(String element) throws Throwable {
+
+        assertTrue("element is not displayed", UserAction.isElementDisplayed(driver, element));
+    }
+	
+	@Then("^user is not shown a '(.*)' element$")
+    public void elementIsNotDisplayed(String element) throws Throwable {
+
+        assertFalse("element is displayed", UserAction.isElementDisplayed(driver, element));
+    }
+	
+	@Then("^user is shown a '(.*)' element which is enabled$")
+    public void elementIsEnabled(String element) throws Throwable {
+	    WebElement webElement = UnitAction.getElement(driver, element);
+	    assertTrue("element is not enabled", webElement.isEnabled());
+    } 
+	
+	@Then("^user is shown a '(.*)' element which is disabled$")
+    public void elementIsDisabled(String element) throws Throwable {
+        WebElement webElement = UnitAction.getElement(driver, element);
+        assertFalse("element is not disabled", webElement.isEnabled());
+    }
 }

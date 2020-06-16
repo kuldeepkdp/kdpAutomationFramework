@@ -59,8 +59,9 @@ public class UserAction {
         }
     }
     
-    //Static wait in milliseconds
-    public static void waitFor(int ms) throws InterruptedException {
+    //wait for seconds
+    public static void waitFor(int seconds) throws InterruptedException {
+        int ms = 1000 * seconds;
         Thread.sleep(ms);
     }
 
@@ -163,5 +164,18 @@ public class UserAction {
               }
         }
         
+    }
+    
+    //Element is displayed or not.
+    public static boolean isElementDisplayed(WebDriver driver, String element) {
+        try {
+            
+        WebElement webElement = UnitAction.getElement(driver, element);
+        return webElement.isDisplayed();
+        
+        }catch(Exception e){
+            
+            return false;
+        }
     }
 }
