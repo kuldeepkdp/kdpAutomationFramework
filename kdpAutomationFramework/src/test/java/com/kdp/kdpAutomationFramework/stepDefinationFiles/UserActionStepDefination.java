@@ -55,12 +55,6 @@ public class UserActionStepDefination {
 		UserAction.clickOnButton(driver, buttonName);
 	}
 
-	@When("user waits until the '(.*)' element is clickable")
-	public void waitsUntilElementIsClickable(String element) throws Throwable {
-		
-	}
-
-
 	@Then("user is shown '(.*)' element with '(.*)' text")
 	public void checkElementText(String element, String value) throws Throwable {
 		UserAction.elementTextIsEqual(driver, element, value);
@@ -155,8 +149,8 @@ public class UserActionStepDefination {
        
     }
 	
-	@Then("^user is shown '(.*)' element containing following text$")
-    public void elementContainingFollowingText(String element, DataTable dt ) throws Throwable {
+	@Then("^user is shown '(.*)' element containing following text in sequence$")
+    public void elementContainingFollowingTextInSequence(String element, DataTable dt ) throws Throwable {
         List<String> rawRow = dt.asList(String.class);
         WebElement webElement= UnitAction.getElement(driver, element);
         String actualText = webElement.getText().replaceAll("\\s", "");
@@ -169,6 +163,46 @@ public class UserActionStepDefination {
         String expectedValue= StringUtils.join(expectedRow, "").replaceAll("\\s", "");
          
         assertTrue("Element does not contain text " + expectedValue, actualText.contains(expectedValue));
+    }
+	
+	@Then("^user is shown '(.*)' element containing following text$")
+    public void elementContainingFollowingTexts(String element, DataTable dt ) throws Throwable {
+        
+        WebElement webElement = UnitAction.getElement(driver, element);
+        
+        List<Map<String, String>> rows = dt.asMaps(String.class, String.class);
+        
+        for (Map<String, String> columns : rows) 
+        { 
+            for (String value : columns.values() ){
+                
+                String expectedValue = UnitAction.getProcessedValue(value);
+                
+                assertTrue("Element does not contain text " + expectedValue, webElement.getText().contains(expectedValue));
+               
+            }
+        }       
+        
+    }
+	
+	@Then("^user is shown '(.*)' form containing following fields$")
+    public void formContainingFollowingFields(String element, DataTable dt ) throws Throwable {
+	    
+	    WebElement webElement = UnitAction.getElement(driver, element);
+	    
+        List<Map<String, String>> rows = dt.asMaps(String.class, String.class);
+        
+        for (Map<String, String> columns : rows) 
+        { 
+            for (String value : columns.values() ){
+                
+                String expectedValue = UnitAction.getProcessedValue(value);
+                
+                assertTrue("Form does not contain field " + expectedValue, webElement.getText().contains(expectedValue));
+               
+            }
+        }       
+        
     }
 	
 	@Then("^user is shown '(.*)' table containing following columns$")
@@ -225,5 +259,10 @@ public class UserActionStepDefination {
     public void elementIsDisabled(String element) throws Throwable {
         WebElement webElement = UnitAction.getElement(driver, element);
         assertFalse("element is not disabled", webElement.isEnabled());
+    }
+	
+	@When("^user stores '(.*)' element text with alias '(.*)' for future reference$")
+    public void storeElementTextForFutureReference(String element, String alias) throws Throwable {
+       UserAction.storeElementText(driver, element, alias);
     }
 }

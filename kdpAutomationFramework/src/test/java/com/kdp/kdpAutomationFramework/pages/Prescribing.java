@@ -46,6 +46,7 @@ public class Prescribing {
 	public String sensitivitiesAndAllergies = "//a[@id='sensitivitiesAndAllergiesNavItem']";
     //	
 	public String lastNamea = "//input[@id='LastName']";
+	public String born = "//span[@id='date-of-birth']";
 	public String termsOfServicea = "//div[@class='col-md-12 terms']//p//input";
 	public String tryCrmFreea = "//button[@class='thin-btn']";
 	public String userNamea = "//input[@id='LoginModel_UserName']";
