@@ -54,6 +54,7 @@ public class PrescribingHome {
 	public String createVisitCasePopupa = "//div[contains(text(),'Create Visit Case - Select Entity')]";
 	public String searchUsing = "//select[@id='searchUsingDropdown']";
 	public String forename = "//input[@id='Forename']";
+	public String findAPerson = "//form[@id='mainForm']";
 	public String gender = "//select[@id='genderTypeDropdown']";
 	public String firstRecordFromSearchResult = "//table[@id='searchresult']/tbody/tr[1]";
 	public String searchResults = "//table[@id='searchresult']/tbody//td";

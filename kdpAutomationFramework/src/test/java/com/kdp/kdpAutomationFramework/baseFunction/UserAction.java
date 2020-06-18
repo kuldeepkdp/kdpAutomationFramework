@@ -178,4 +178,14 @@ public class UserAction {
             return false;
         }
     }
+    
+    public static void storeElementText(WebDriver driver, String element, String alias) throws ConfigurationException, SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, InterruptedException {
+        
+        WebElement webElement = UnitAction.getElement(driver, element);
+        String text = webElement.getText();
+        if(text.isEmpty()) {
+            text = webElement.getAttribute("value");
+        }
+        UnitAction.SetRunTimeData(alias, text);  
+    }
 }
