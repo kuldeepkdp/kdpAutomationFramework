@@ -54,6 +54,11 @@ public class UserActionStepDefination {
 	public void clickOnButton(String buttonName) throws Throwable {
 		UserAction.clickOnButton(driver, buttonName);
 	}
+	
+	@When("user clicks on the '(.*)' link")
+    public void clickOnLink(String buttonName) throws Throwable {
+        UserAction.clickOnLink(driver, buttonName);
+    }
 
 	@Then("user is shown '(.*)' element with '(.*)' text")
 	public void checkElementText(String element, String value) throws Throwable {
@@ -251,6 +256,7 @@ public class UserActionStepDefination {
 	
 	@Then("^user is shown a '(.*)' element which is enabled$")
     public void elementIsEnabled(String element) throws Throwable {
+	    
 	    WebElement webElement = UnitAction.getElement(driver, element);
 	    assertTrue("element is not enabled", webElement.isEnabled());
     } 
@@ -260,7 +266,7 @@ public class UserActionStepDefination {
         WebElement webElement = UnitAction.getElement(driver, element);
         assertFalse("element is not disabled", webElement.isEnabled());
     }
-	
+		
 	@When("^user stores '(.*)' element text with alias '(.*)' for future reference$")
     public void storeElementTextForFutureReference(String element, String alias) throws Throwable {
        UserAction.storeElementText(driver, element, alias);
