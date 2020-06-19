@@ -1,13 +1,12 @@
 package com.kdp.kdpAutomationFramework.baseFunction;
 
-
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.openqa.selenium.By;
@@ -18,7 +17,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.kdp.kdpAutomationFramework.navigation.AssertOn;
 import com.kdp.kdpAutomationFramework.navigation.Navigate;
-
 
 public class UserAction {
 
@@ -58,25 +56,24 @@ public class UserAction {
             method.invoke(null, driver);
         }
     }
-    
-    //wait for seconds
+
+    // wait for seconds
     public static void waitFor(int seconds) throws InterruptedException {
         int ms = 1000 * seconds;
         Thread.sleep(ms);
     }
 
-    //Custom click method
+    // Custom click method
     public static void click(WebDriver driver, String element) throws ConfigurationException, SecurityException,
             InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, InterruptedException {
-           
-           WebElement webElement = UnitAction.getElement(driver, element);
-           WebDriverWait wait = new WebDriverWait(driver, 30);
-           wait.until(ExpectedConditions.elementToBeClickable(webElement));
-           webElement.click();          
+
+        WebElement webElement = UnitAction.getElement(driver, element);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+        webElement.click();
     }
-    
-    public static void sendKeys(WebDriver driver, String element, String value)
-            throws Exception {
+
+    public static void sendKeys(WebDriver driver, String element, String value) throws Exception {
 
         UnitAction.getElement(driver, element).sendKeys(value);
     }
@@ -94,98 +91,164 @@ public class UserAction {
         if (type.equalsIgnoreCase("dropbox")) {
             UiControl.dropbox(driver, element, processedValue);
         }
-        
+
         if (type.equalsIgnoreCase("date")) {
             UiControl.date(driver, element, processedValue);
         }
-        
+
         if (type.equalsIgnoreCase("lookup")) {
             UiControl.lookup(driver, element, processedValue);
         }
 
         UnitAction.setAlias(alias, processedValue);
     }
-    
+
     public static void clickOnButton(WebDriver driver, String buttonName) {
 
-        try {
-            driver.findElement(By.xpath("//input[@value='" + buttonName + "']")).click();
-        } catch (Exception e) {
+        boolean clicked = false;
+        List<WebElement> ListOfButtons1 = driver
+                .findElements(By.xpath("//button[contains(text(),'" + buttonName + "')]"));
+        List<WebElement> ListOfButtons2 = driver.findElements(By.xpath("//input[@value='" + buttonName + "']"));
+        List<WebElement> ListOfButtons3 = driver.findElements(By.xpath("//a[contains(text(),'" + buttonName + "')]"));
 
-            try {
-                driver.findElement(By.xpath("//button[contains(text(),'" + buttonName + "')]")).click();
-            } catch (Exception e2) {
+        if (ListOfButtons1.size() > 0 && !clicked) {
+            for (WebElement button : ListOfButtons1) {
 
-                driver.findElement(By.xpath("//*[contains(text(),'" + buttonName + "')]")).click();
+                try {
+                    button.click();
+                    clicked = true;
+                    break;
+                } catch (Exception e) {
+
+                }
             }
         }
+
+        if (ListOfButtons2.size() > 0 && !clicked) {
+            for (WebElement button : ListOfButtons2) {
+
+                try {
+                    button.click();
+                    clicked = true;
+                    break;
+                } catch (Exception e) {
+
+                }
+            }
+        }
+
+        if (ListOfButtons3.size() > 0 && !clicked) {
+            for (WebElement button : ListOfButtons3) {
+
+                try {
+                    button.click();
+                    clicked = true;
+                    break;
+                } catch (Exception e) {
+
+                }
+            }
+        }
+
+    }
+    
+    public static void clickOnLink(WebDriver driver, String link) {
+
+        boolean clicked = false;
+        List<WebElement> ListOfLinks1 = driver.findElements(By.xpath("//a[text()='" + link + "']"));
+        List<WebElement> ListOfLinks2 = driver.findElements(By.xpath("//a[contains(text(),'" + link + "')]"));
+
+        if (ListOfLinks1.size() > 0 && !clicked) {
+            for (WebElement button : ListOfLinks1) {
+
+                try {
+                    button.click();
+                    clicked = true;
+                    break;
+                } catch (Exception e) {
+
+                }
+            }
+        }
+
+        if (ListOfLinks2.size() > 0 && !clicked) {
+            for (WebElement button : ListOfLinks2) {
+
+                try {
+                    button.click();
+                    clicked = true;
+                    break;
+                } catch (Exception e) {
+
+                }
+            }
+        }
+
     }
 
-    public static void elementTextIsEqual(WebDriver driver, String element, String value)
-            throws Exception {
-        
+    public static void elementTextIsEqual(WebDriver driver, String element, String value) throws Exception {
+
         String expectedValue = UnitAction.getProcessedValue(value);
         WebElement webElement = UnitAction.getElement(driver, element);
         String actualValue = webElement.getText();
-        assertEquals("element does not contain " + expectedValue , expectedValue, actualValue);
+        assertEquals("element does not contain " + expectedValue, expectedValue, actualValue);
     }
-    
-    public static void elementContainingText(WebDriver driver, String element, String value)
-            throws Exception {
-        
+
+    public static void elementContainingText(WebDriver driver, String element, String value) throws Exception {
+
         String expectedValue = UnitAction.getProcessedValue(value);
         WebElement webElement = UnitAction.getElement(driver, element);
         assertTrue("Element does not contain text " + expectedValue, webElement.getText().contains(expectedValue));
     }
-    
-    //Application specfic check to ensure page is loaded
-    public static void waitUntilPageIsLoaded(WebDriver driver) throws InterruptedException{
-        
+
+    // Application specfic check to ensure page is loaded
+    public static void waitUntilPageIsLoaded(WebDriver driver) throws InterruptedException {
+
         boolean displayed;
         int count = 0;
-        
-        //Wait until Progress bar element disappear
-        while (count < 30){
-            
+
+        // Wait until Progress bar element disappear
+        while (count < 30) {
+
             try {
                 Thread.sleep(1000);
                 displayed = driver.findElement(By.xpath("//div[@class='loadingStyle']")).isDisplayed();
-                if (!displayed)
-                {
+                if (!displayed) {
                     Thread.sleep(1000);
                     break;
                 }
 
                 count++;
-              }
-              catch(Exception e) {
-                  Thread.sleep(1000);
-                  break;
-              }
+            } catch (Exception e) {
+                Thread.sleep(1000);
+                break;
+            }
         }
-        
+
     }
-    
-    //Element is displayed or not.
+
+    // Element is displayed or not.
     public static boolean isElementDisplayed(WebDriver driver, String element) {
         try {
-            
-        WebElement webElement = UnitAction.getElement(driver, element);
-        return webElement.isDisplayed();
-        
-        }catch(Exception e){
-            
+
+            WebElement webElement = UnitAction.getElement(driver, element);
+            return webElement.isDisplayed();
+
+        } catch (Exception e) {
+
             return false;
         }
     }
-    
-    public static void storeElementText(WebDriver driver, String element, String alias) throws ConfigurationException, SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, InterruptedException {
-        
+
+    public static void storeElementText(WebDriver driver, String element, String alias)
+            throws ConfigurationException, SecurityException, InstantiationException, IllegalAccessException,
+            ClassNotFoundException, IOException, InterruptedException {
+
         WebElement webElement = UnitAction.getElement(driver, element);
         String text = webElement.getText();
-        if(text.isEmpty()) {
+        if (text.isEmpty()) {
             text = webElement.getAttribute("value");
         }
-        UnitAction.SetRunTimeData(alias, text);  
+        UnitAction.SetRunTimeData(alias, text);
     }
 }

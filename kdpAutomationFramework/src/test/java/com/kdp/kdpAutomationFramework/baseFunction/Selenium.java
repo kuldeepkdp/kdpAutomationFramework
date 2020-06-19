@@ -3,12 +3,15 @@ package com.kdp.kdpAutomationFramework.baseFunction;
 import java.io.IOException;
 
 import org.apache.commons.configuration.ConfigurationException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import java.util.concurrent.TimeUnit;
 
+import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
@@ -53,10 +56,17 @@ public class Selenium {
 	}
 
 	@After
-	public void afterScenario() {
+	public void afterScenario(Scenario scenario) {
+	    
+	      if (scenario.isFailed()) {
+	        // Take a screenshot...
+	        final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+	     // embed it in the report.
+	        scenario.embed(screenshot, "image/png"); 
+	      }
 		
-		/*driver.quit();
-		System.out.println("Exectuing After Statement");*/
+		driver.quit();
+		System.out.println("Exectuing After Statement");
 		
 	}
 }
