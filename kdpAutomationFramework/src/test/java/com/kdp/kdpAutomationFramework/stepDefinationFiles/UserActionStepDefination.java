@@ -271,4 +271,10 @@ public class UserActionStepDefination {
     public void storeElementTextForFutureReference(String element, String alias) throws Throwable {
        UserAction.storeElementText(driver, element, alias);
     }
+	
+	@When("^user clears the '(.*)' element$")
+    public void clearsTheElement(String element) throws Throwable {
+        UserAction.clearElement(driver, element);
+    }
+
 }

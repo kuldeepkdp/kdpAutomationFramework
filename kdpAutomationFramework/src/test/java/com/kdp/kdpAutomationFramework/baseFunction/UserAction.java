@@ -251,4 +251,9 @@ public class UserAction {
         }
         UnitAction.SetRunTimeData(alias, text);
     }
+    
+    public static void clearElement(WebDriver driver, String element) throws ConfigurationException, SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, InterruptedException {
+        WebElement webElement = UnitAction.getElement(driver, element);
+        webElement.clear();
+    }
 }
