@@ -59,7 +59,7 @@ Feature: This feature file contain scenario related prescribing application
     And user clicks on the 'Search' button
     And user waits until page is loaded
     Then user is shown 'searchResultsTable' table containing following columns
-      | NHS Number | External System ID | Name | Gender | Date of Birth | Addressk |
+      | NHS Number | External System ID | Name | Gender | Date of Birth | Address |
     Then user is shown 'searchResultsTable' table containing following row
       | 317 975 3676 | 317 975 3676 | SMITH, Monday | $gender | 19-Aug-1999 | Station House, Altricnham, WA14 1EP |
     And user clicks on the 'firstRecordFromSearchResult' element
