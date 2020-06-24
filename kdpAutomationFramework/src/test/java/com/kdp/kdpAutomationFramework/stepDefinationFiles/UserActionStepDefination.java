@@ -86,7 +86,7 @@ public class UserActionStepDefination {
 
     }
 	
-	@When("^fills out the current form as follows$")
+	@When("^user fills out the current form as follows$")
 	public void fillOutCurrentForm(DataTable dt) throws Throwable {
 
 		List<Map<String, String>> list = dt.asMaps(String.class, String.class);

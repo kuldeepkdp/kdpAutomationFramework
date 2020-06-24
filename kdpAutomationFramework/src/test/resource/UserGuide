@@ -24,26 +24,105 @@ user navigates to the '(.*)' (page|tab)
 (page|tab) -> Accept either page or tab
 
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-Generic Phrase
+Available Phrase
 
-Actions on webelement
-Textbox-> user sets the 'ABC' field as 'XYZ'
-Dropbox-> user select 'ABC' from dropbox 'XYZ'
-Button->  user clicks on the 'ABC' button
-Link->    user clicks on the 'ABC' link
-ClickOnElement->  user clicks on the 'ABC' element
-WaitUntil->    user waits until the 'ABC' element is clickable 
-Static Wait -> user waits for 5 miliseconds
-ApplicationSpecificWaitUntilForPageLoad -> user waits until page is loaded
-ApplicationSpecificForLogin-> user login as '(.*)' user
+Action phrases
 
-Navigation
-user navigates to the 'ABC' page|tab
-user is now on the 'ABC' page|tab
+//For login
+user login as '(.*)' user
 
-Form filling
-And fills out the current form as follows
-      | Element         | Type    | Value                  | Alias |
-      | companies       | dropbox | Civica Housing         | abc   |
+//For page navigation and it will set current page
+user navigates to the '(.*)' (page|tab)
+
+//To enter values
+user fills out the current form as follows
+      | Element     | Type    | Value           | Alias     |
+      | searchUsing | dropbox | Patient Details |           |
+
+//To click on element
+user clicks on the '(.*)' element
+
+//To click on button. locating element is not required
+user clicks on the '(.*)' button
+
+//To click on link. locating element is not required
+user clicks on the '(.*)' link
+
+//To wait for n seconds
+user waits for '(.*)' seconds
+
+//Application spectific wait until. Need to figure out flag which determine DOM is loaded
+user waits until page is loaded
+
+//To store element text or value for future reference
+user stores '(.*)' element text with alias '(.*)' for future reference
+
+//To clear element
+user clears the '(.*)' element
+
+
+Verification phrases
+
+//To check user is on the page and it will set current page
+user is now on the '(.*)' (page|tab)
+
+//To verify element text is same as expected
+user is shown '(.*)' element with '(.*)' text
+
+//To verify element contains expected text
+user is shown '(.*)' element containing '(.*)' text
+
+//To verify element contains multiple texts. Header is for readability purpose. Sequence is not considered
+user is shown '(.*)' element containing following text
+        | Dose | Unit | Frequency      |
+        | 1000 | mg   | every 24 hours |
+        
+//To verify form contains multiple fields. Header is for readability purpose. Sequence is not considered
+user is shown '(.*)' form containing following fields
+        | field name 1 | field name 2 | field name 3 | field name 4 | field name 5  | field name 6 |
+        | Search Using | Surname      | Forename     | Gender       | Date of Birth | Post Code    | 
+        
+//To verify element contains expected list. Sequence will be considered 
+user is shown '(.*)' element containing following text in sequence
+  | value1      | value2 | value3 | value4 | value5 |
+
+//To verify table contains following columns
+user is shown '(.*)' table containing following columns
+|column name 1| column name 2|column name 3|column name 4|
+
+//To verify table contains following row
+user is shown '(.*)' table containing following row
+  | value1      | value2 | value3 | value4 | value5 |
+  
+//To verify element is displayed
+user is shown a '(.*)' element
+
+//To verify element is not displayed
+user is not shown a '(.*)' element
+
+//To verify element is enabled
+user is shown a '(.*)' element which is enabled
+
+//To verify element is disabled
+user is shown a '(.*)' element which is disabled
+
+//To verify list is equals to expected list. Both list should be equal
+user is shown a '(.*)' list which is equal to following list
+  | value1      | value2 | value3 | value4 | value5 |
+
+//To verify list contains expected list. Sequence will not be considered
+user is shown a '(.*)' list which contains following list
+  | value1      | value2 | value3 | value4 | value5 |
+
+//To verify list contains expected list. Sequence will be considered
+user is shown a '(.*)' list which contains following list in sequence
+  | value1 | value2 | value3 | value4 | value5 |
+ 
+
+
+
+
+
+
 
  
