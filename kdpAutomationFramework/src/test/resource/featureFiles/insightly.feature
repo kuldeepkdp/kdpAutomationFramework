@@ -6,7 +6,7 @@ Feature: This feature file contain scenario related insightly application
    Then user is now on the 'InsightlyLanding' page
    When user clicks on the 'tryCrmFree' element
    Then user is now on the 'InsightlyAccount' page
-   And fills out the current form as follows
+   And user fills out the current form as follows
       | Element         | Type    | Value                  | Alias |
       | firstName       | textbox    | Kuldeep             | kkk   |
       | lastName        |  textbox     | Kumar             | aaaaa   |

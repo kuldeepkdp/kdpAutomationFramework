@@ -5,7 +5,7 @@ Feature: This feature file contain scenario related prescribing application
   Scenario: Verify that user can add allergy
     When user navigates to the 'PrescribingHome' page
     And user waits for '2' seconds
-    And fills out the current form as follows
+    And user fills out the current form as follows
       | Element     | Type    | Value           | Alias     |
       | searchUsing | dropbox | Patient Details |           |
       | surname     | textbox | smith           |           |
@@ -23,7 +23,7 @@ Feature: This feature file contain scenario related prescribing application
     And user waits until page is loaded
     Then user is shown 'header' element with 'Sensitivities And Allergies History' text
     And user clicks on the 'Record Allergy' button
-    And fills out the current form as follows
+    And user fills out the current form as follows
       | Element      | Type    | Value                | Alias |
       | drug         | textbox | RANDOM_STRING        | &drug |
       | category     | dropbox | ALLERGIC REACTION    |       |
@@ -50,7 +50,7 @@ Feature: This feature file contain scenario related prescribing application
     Then user is shown 'findAPerson' element containing following text
       | text1        | text2  | text3   | text3    | text5     | text6         |
       | Search Using | Gender | Surname | Forename | Post Code | Date of Birth |
-    And fills out the current form as follows
+    And user fills out the current form as follows
       | Element     | Type    | Value           | Alias |
       | searchUsing | dropbox | Patient Details |       |
       | surname     | textbox | smith           |       |
@@ -73,7 +73,7 @@ Feature: This feature file contain scenario related prescribing application
     And user waits until page is loaded
     Then user is shown 'header' element with 'Sensitivities And Allergies History' text
     And user clicks on the 'Record Allergy' button
-    And fills out the current form as follows
+    And user fills out the current form as follows
       | Element      | Type    | Value                | Alias |
       | drug         | textbox | RANDOM_STRING        | &drug |
       | category     | dropbox | ALLERGIC REACTION    |       |
@@ -93,7 +93,7 @@ Feature: This feature file contain scenario related prescribing application
   @Active
   Scenario: aaa
     When user navigates to the 'PrescribingHome' page
-    And fills out the current form as follows
+    And user fills out the current form as follows
       | Element  | Type    | Value    | Alias     |
       | surname  | textbox | $surname |           |
       | forename | textbox | Monday   | &forename |
@@ -111,7 +111,7 @@ Feature: This feature file contain scenario related prescribing application
     #And user waits for 10000 miliseconds
     And user clicks on the 'recordAllergy' element
     Then user is now on the 'Allergy' page
-    And fills out the current form as follows
+    And user fills out the current form as follows
       | Element     | Type    | Value                             | Alias        |
       | drug        | textbox |                                   |              |
       | dateOfOnset | textbox | test date of onset                |              |
@@ -120,7 +120,7 @@ Feature: This feature file contain scenario related prescribing application
   @Active
   Scenario: bbb
     When user navigates to the 'PrescribingHome' page
-    And fills out the current form as follows
+    And user fills out the current form as follows
       | Element  | Type    | Value     | Alias |
       | surname  | textbox | $surname  |       |
       | forename | textbox | &forename |       |
@@ -135,7 +135,7 @@ Feature: This feature file contain scenario related prescribing application
     And user waits until page is loaded
     And user clicks on the 'recordAllergy' element
     Then user is now on the 'Allergy' page
-    And fills out the current form as follows
+    And user fills out the current form as follows
       | Element     | Type    | Value              | Alias |
       | drug        | textbox | &forename          |       |
       | dateOfOnset | textbox | test date of onset |       |
@@ -144,7 +144,7 @@ Feature: This feature file contain scenario related prescribing application
   @Active
   Scenario: ccc
     When user navigates to the 'PrescribingHome' page
-    And fills out the current form as follows
+    And user fills out the current form as follows
       | Element  | Type    | Value  | Alias |
       | surname  | textbox | smith  |       |
       | forename | textbox | Monday |       |
