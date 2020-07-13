@@ -36,6 +36,19 @@ public class UiControl {
             }
         }
     }
+    
+ // handling span dropbox
+    public static void dropbox3(WebDriver driver, String element, String value) throws ConfigurationException, SecurityException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, InterruptedException {
+
+        UserAction.click(driver, element);
+        List<WebElement> option = driver.findElement(By.xpath(UnitAction.getXPath(element)))
+                .findElements(By.xpath("//li[@role='option']"));
+        for (WebElement e : option) {
+            if (e.getText().equals(value)) {
+                e.click();
+            }
+        }
+    }
 
     // handling textbox
     public static void textbox(WebDriver driver, String element, String value) throws Exception {
@@ -55,5 +68,18 @@ public class UiControl {
         Thread.sleep(4000);
         ele.sendKeys(Keys.TAB);
         ele.sendKeys(Keys.ENTER);
+    }
+    
+    //handling multiSelectDropbox
+    public static void multiSelectDropbox(WebDriver driver, String element, String value) throws Exception {
+        
+        WebElement ele = UnitAction.getElement(driver, element);
+        String id = ele.getAttribute("aria-owns");
+        ele.click();
+        UserAction.waitFor(2);
+        driver.findElement(By.xpath("//*[@id='" + id + "']//*[contains(text(),'" + value + "')]")).click();
+        ele.sendKeys(Keys.ENTER);
+        UserAction.waitFor(2);
+
     }
 }

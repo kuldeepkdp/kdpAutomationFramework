@@ -99,10 +99,13 @@ public class UnitAction {
     public static String getXPath(String element) throws ConfigurationException, IOException, SecurityException,
             InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        String xPath = null;
+        String xPath=null;
         if (GetConfigData("elementRepoConifiguration").equalsIgnoreCase("file")) {
             String filename = getCurrentPage();
             xPath = GetElementRepoData(filename, element);
+            if(xPath==null) {
+                xPath = GetElementRepoData("Master", element);
+            }
         } else {
 
             String fullPathOfTheClass = "com.kdp.kdpAutomationFramework.pages." + getCurrentPage();
@@ -115,6 +118,21 @@ public class UnitAction {
                 if (a.equals(element)) {
                     xPath = field.get(Class.forName(fullPathOfTheClass).newInstance()).toString();
                     break;
+                }
+            }
+            
+            if(xPath==null) {
+                String fullPathOfTheMasterClass = "com.kdp.kdpAutomationFramework.pages.Master";
+
+                Field[] masterClassFields = Class.forName(fullPathOfTheMasterClass).newInstance().getClass().getDeclaredFields();
+
+                for (Field field : masterClassFields) {
+
+                    String a = field.getName();
+                    if (a.equals(element)) {
+                        xPath = field.get(Class.forName(fullPathOfTheMasterClass).newInstance()).toString();
+                        break;
+                    }
                 }
             }
 

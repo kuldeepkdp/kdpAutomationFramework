@@ -88,17 +88,28 @@ public class UserAction {
             UiControl.textbox(driver, element, processedValue);
 
         }
-        if (type.equalsIgnoreCase("dropbox")) {
+        else if (type.equalsIgnoreCase("dropbox")) {
             UiControl.dropbox(driver, element, processedValue);
         }
 
-        if (type.equalsIgnoreCase("date")) {
+        else if (type.equalsIgnoreCase("date")) {
             UiControl.date(driver, element, processedValue);
         }
 
-        if (type.equalsIgnoreCase("lookup")) {
+        else if (type.equalsIgnoreCase("lookup")) {
             UiControl.lookup(driver, element, processedValue);
         }
+        
+        else if (type.equalsIgnoreCase("multiSelectDropbox")) {
+            UiControl.multiSelectDropbox(driver, element, processedValue);
+        }
+        
+        else {
+            
+            UiControl.textbox(driver, element, processedValue);
+            
+        }
+
 
         UnitAction.setAlias(alias, processedValue);
     }
