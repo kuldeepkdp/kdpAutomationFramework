@@ -1,7 +1,7 @@
 @ActiveFeature
 Feature: This feature file contain scenario related prescribing application
 
-  @dev
+  @Active
   Scenario: Verify that user can add allergy
     When user navigates to the 'PrescribingHome' page
     And user waits for '2' seconds
@@ -40,7 +40,7 @@ Feature: This feature file contain scenario related prescribing application
     Then user is shown 'sensitivitiesAndAllergiesHistory' table containing following row
       | &drug | ALLERGIC REACTION | Patient | PATEL, Jitendra (Mr) |
 
-  @dev
+  @Active
   Scenario: Verify that user can add allergy
     When user navigates to the 'PrescribingHome' page
     Then user is shown 'header' element containing 'Find a Person' text
